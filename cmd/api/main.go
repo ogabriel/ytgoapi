@@ -51,6 +51,31 @@ func main() {
 
 	})
 
+	g.GET("/posts/:id", func(ctx *gin.Context) {
+		param := ctx.Param("id")
+		id, err := uuid.Parse(param)
+
+		if err != nil {
+			ctx.JSON(http.StatusNotFound, nil)
+		}
+
+		p, err := service.FindOneById(id)
+
+		if err != nil {
+			statusCode := http.StatusInternalServerError
+			if err == post.ErrPostNotFound {
+				statusCode = http.StatusNotFound
+			}
+			ctx.JSON(statusCode, gin.H{
+				"error": err.Error(),
+			})
+
+			return
+		}
+
+		ctx.JSON(http.StatusOK, p)
+	})
+
 	g.GET("/", func(ctx *gin.Context) {
 		ctx.JSON(200, gin.H{
 			"message": "Hello world",
