@@ -32,3 +32,7 @@ func (p Service) Create(post internal.Post) error {
 func (p Service) FindOneById(id uuid.UUID) (internal.Post, error) {
 	return p.Repository.FindOneById(id)
 }
+
+func (p Service) Delete(id uuid.UUID) error {
+	return p.Repository.Delete(id)
+}

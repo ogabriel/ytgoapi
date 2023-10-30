@@ -51,3 +51,20 @@ func (r *Repository) FindOneById(id uuid.UUID) (internal.Post, error) {
 
 	return post, nil
 }
+
+func (r *Repository) Delete(id uuid.UUID) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	tag, err := r.Conn.Exec(
+		ctx,
+		"DELETE FROM posts WHERE id = $1",
+		id,
+	)
+
+	if tag.RowsAffected() == 0 {
+		return ErrPostNotFound
+	}
+
+	return err
+}
