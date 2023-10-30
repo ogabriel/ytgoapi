@@ -3,10 +3,12 @@ package main
 import (
 	"net/http"
 
-	"github.com/gin-gonic/gin"
 	"github.com/ogabriel/ytgoapi/database"
 	"github.com/ogabriel/ytgoapi/internal"
 	"github.com/ogabriel/ytgoapi/internal/post"
+
+	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 var service post.Service

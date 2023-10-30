@@ -5,6 +5,8 @@ import (
 	"unicode/utf8"
 
 	"github.com/ogabriel/ytgoapi/internal"
+
+	"github.com/google/uuid"
 )
 
 var ErrPostBodyEmpty = errors.New("post body is empty")
